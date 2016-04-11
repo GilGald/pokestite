@@ -1,0 +1,55 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function() {	
+          $("#search_pkmn").click( function(event) {        	          	
+          	var pId=$("#usr").val();          	
+          	var url="http://pokeapi.co/api/v2/pokemon/"+pId;			
+			$("#loading_img").show();
+          	 $.ajax({
+                type: "GET",
+                url: url                
+            }).done(function(result){                                               
+                $("#poke_name").text(result["name"]);
+                $("#loading_img").hide();
+                $("#poke_img").attr('src',"http://pokeapi.co/media/img/"+pId+".png");
+            });
+    });
+});
+</script>
+<style>
+.glyphicon-refresh-animate {
+	-animation: spin .8s infinite linear;
+	-webkit-animation: spin2 .8s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+</style>
+
+
+<div>
+	<div>
+	  <h3>This is a template of pokemon </h3>
+	</div>
+	<h4><p >Name : <label for="usr" id="poke_name">{{name}}</label></p></h2>
+	
+	<div>
+		<div><img  id="poke_img" src={{img}}></img></div>
+		<span id="loading_img" class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="display: none;"></span>
+	</div>
+	
+	<div class="form-group col-sm-2">
+	  <label for="usr" id="pkmn_num">number:  <input type="text" class="form-control col-xs-2" id="usr"></label>
+      <button type="button" id="search_pkmn" class="btn btn-default  form-control col-xs-3">Search</button>
+	</div>
+</div>
